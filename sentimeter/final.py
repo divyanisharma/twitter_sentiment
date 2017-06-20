@@ -22,12 +22,10 @@ from textblob import TextBlob
 
 # In[7]:
 
-api = twitter.Api(consumer_key='iXZyChJoFTYpsJl765BUn3F4o',
-                      consumer_secret='BZZ5gasUplbBTsmNjwQVv52xrnl41aMg94gRkqAAJ5fcu95daa',
-                      access_token_key='2794625946-BGeQbC4Xu2v3Vwa9hTrwiOsiEHMFX2LjxgVgQU1',
-                      access_token_secret='ZThu9UaQsRSAsjaz5QdhVQyqbPjSUM9c8ArO7rnyA7MmS')
-
-
+api = twitter.Api(consumer_key='35yd9z95aUPS3LJ4qsB61p9jt',
+                      consumer_secret='eoY9hyJytLQ0ZueLF5lMmMMwkz7fQ3cVh8ZudAAlcEKIELySQW',
+                      access_token_key='844192291640160258-DPeveBM11r87sfeDj3guqtLsBX3yAHH',
+                      access_token_secret='3MehqCcDw3tYgsR5Tnh0j73bxtlgxLX5YGozcDlDUBqtl')
 # In[8]:
 
 def get_tweet_sentiment(tweet):
