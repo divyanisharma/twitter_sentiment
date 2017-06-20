@@ -96,131 +96,38 @@ def tor(final):
 # In[12]:
 
 
+def getResult(choice, query):
 
-print("1.String 2.Hashtag 3.Handle 4.ALL CSIR handles")
-choice = input()
+  if(choice==1):
 
-if(choice==1):
-    
-    print("Enter string")
-    s = "q="+raw_input()
-    final = api.GetSearch(raw_query=s)
-    a = tor(final)
-    
-elif(choice==2):
-    
-    print("Enter Hashtag")
-    s = "q=%23"+raw_input()
-    final = api.GetSearch(raw_query=s)
-    a = tor(final)
-    
-elif(choice==3):
-    
-    s = "q=%40"+raw_input()
-    final = api.GetSearch(raw_query=s)
-    a = tor(final)
-    
-else:
-    for handle in hand:
-        s = "q=%40"+handle
-        final = api.GetSearch(raw_query=s)
-        if not final:
-            a.append([0,0,0])
-            continue
-        b = tor(final)
-        a.append(b)
+      print("Enter string")
+      s = "q="+query
+      final = api.GetSearch(raw_query=s)
+      a = tor(final)
+
+  elif(choice==2):
+
+      print("Enter Hashtag")
+      s = "q=%23"+query
+      final = api.GetSearch(raw_query=s)
+      a = tor(final)
+
+  elif(choice==3):
+
+      s = "q=%40"+query
+      final = api.GetSearch(raw_query=s)
+      a = tor(final)
+
+  else:
+      for handle in hand:
+          s = "q=%40"+handle
+          final = api.GetSearch(raw_query=s)
+          if not final:
+              a.append([0,0,0])
+              continue
+          b = tor(final)
+          a.append(b)
             
-    print "done !"     
-        
-
-
-# In[14]:
-
-poslist = []
-neglist = []
-neulist = []
-
-for i in range(len(a)):
-    poslist.append(a[i][0])
-    neglist.append(a[i][1])
-    neulist.append(a[i][2])
-    
-
-
-# In[19]:
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-N = 41
-ind = np.arange(N)  # the x locations for the groups
-width = 0.2       # the width of the bars
-opacity = 0.4
-
-fig = plt.figure(figsize=(30,12))
-ax = fig.add_subplot(111)
-
-#yvals = [32,34,36,28,40,42,44]
-yvals = poslist
-rects1 = ax.bar(ind, yvals, width, color='g')
-#zvals = [2,4,6,8,10,12,14]
-zvals = neglist
-rects2 = ax.bar(ind+width, zvals, width,color='r')
-#kvals = [1,2,3,4,5,6,7]
-kvals = neulist
-rects3 = ax.bar(ind+width*2, kvals, width, color='b')
-
-ax.set_ylabel('Polarity')
-ax.set_xticks(ind+width)
-ax.set_xticklabels( hand )
-ax.legend( (rects1[0], rects2[0], rects3[0]), ('pos', 'neg', 'neu') )
-
-def autolabel(rects):
-    for rect in rects:
-        h = rect.get_height()
-        ax.text(rect.get_x()+rect.get_width()/2., 1.05*h, '%d'%int(h),
-                ha='center', va='bottom')
-
-
-plt.show()
-
-
-# In[32]:
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-N = 41
-ind = np.arange(N)  # the x locations for the groups
-width = 0.3       # the width of the bars
-opacity = 0.4
-
-fig = plt.figure(figsize=(30,30))
-ax = fig.add_subplot(111)
-
-#yvals = [32,34,36,28,40,42,44]
-yvals = poslist
-rects1 = ax.barh(ind, yvals, width, color='g')
-#zvals = [2,4,6,8,10,12,14]
-zvals = neglist
-rects2 = ax.barh(ind+width, zvals, width,color='r')
-#kvals = [1,2,3,4,5,6,7]
-kvals = neulist
-rects3 = ax.barh(ind+width*2, kvals, width, color='b')
-
-ax.set_xlabel('Polarity')
-ax.set_yticks(ind+width)
-ax.set_yticklabels( hand )
-ax.legend( (rects1[0], rects2[0], rects3[0]), ('pos', 'neg', 'neu') )
-
-def autolabel(rects):
-    for rect in rects:
-        h = rect.get_height()
-        ax.text(rect.get_x()+rect.get_width()/2., 1.05*h, '%d'%int(h),
-                    ha='center', va='bottom')
-
-
-plt.show()
 
 
 def getSentimentGraph (option, query):
@@ -233,13 +140,11 @@ def getSentimentGraph (option, query):
 
 
     # calculate
+    getResult(option)
+    res = {}
+    for i in range(len(a)):
+      res[hand[i]] = {'pos' : a[i][0], 'neg' : a[i][1], 'neu' : a[i][2]}
 
-
-    return [
-        ['Sentiment', 'No. of Tweets'],
-        ['Positive', positive_count],
-        ['Neutral', neutral_count],
-        ['Negative', negative_count],
-    ]
+    return res
 
 
